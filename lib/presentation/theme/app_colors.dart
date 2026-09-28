@@ -5,7 +5,7 @@ const Color black = Color(0xFF000000);
 
 const Color orange = Color(0xFFFF6B00);
 const Color darkOrange = Color(0xFFE85D04);
-const Color lightOrange = Color(0xFFFFE5D0);
+const Color lightOrange = Color(0xFFFFCC80);
 
 const Color lightGrey = Color(0xFFF5F5F5);
 const Color grey = Color(0xFFBDBDBD);
