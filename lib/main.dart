@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:week8_task/presentation/screens/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:week8_task/presentation/bloc/app_bloc.dart';
+import 'package:week8_task/presentation/screens/splash/splash_screen.dart';
 
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(ScreenUtilInit(
+      designSize: const Size(375, 812),
+      child:const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,13 +17,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Food Delivery App',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+    return BlocProvider(
+      create: (context) => AppBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Food Delivery App',
+        theme: ThemeData(
+          colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: SplashScreen(),
       ),
-      home: SplashScreen(),
     );
   }
 }
