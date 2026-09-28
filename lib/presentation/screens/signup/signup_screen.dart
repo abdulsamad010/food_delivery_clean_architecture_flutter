@@ -77,7 +77,7 @@ class _LoginScreenState extends State<SignupScreen> {
                     Container(
                       padding: EdgeInsets.all(16.w),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(topLeft:Radius.circular(45.r),topRight: Radius.circular(15)),
+                        borderRadius: BorderRadius.only(topLeft:Radius.circular(35.r),topRight: Radius.circular(35.r)),
                         color: white
                       ),
         
