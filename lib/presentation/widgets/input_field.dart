@@ -34,7 +34,7 @@ class InputField extends StatelessWidget {
             filled: true,
             fillColor: lightBlueGrey,
             suffixIcon: isVisible == true
-                ? Icon(Icons.remove_red_eye, color: grey,)
+                ? Icon(Icons.visibility_off, color: grey,)
                 : SizedBox(),
 
             hint: Text("$name", style: TextStyle(color: darkGrey),)
