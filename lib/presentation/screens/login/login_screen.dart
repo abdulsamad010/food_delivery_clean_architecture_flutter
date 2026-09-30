@@ -107,8 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    Checkbox(value: value, onChanged: (v){value=v!;
-                                    }),
+                                    Checkbox(value: value, onChanged: (v){value=v!;}),
                                     Text("Remember me",style: TextStyle(
                                         color: darkGrey,
                                         fontSize: 15,
