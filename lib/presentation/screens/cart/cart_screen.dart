@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:week8_task/presentation/bloc/app_state.dart';
+import 'package:week8_task/presentation/screens/edit_address/edit_address_screen.dart';
 import 'package:week8_task/presentation/screens/payment/payment_screen.dart';
 
 import '../../bloc/app_bloc.dart';
@@ -28,9 +29,9 @@ class _CartScreenState extends State<CartScreen> {
     print("hi : ${context.read<AppBloc>().state.cart}");
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
+        backgroundColor:black,
         leading: Padding(
-          padding:EdgeInsets.only(top:4.w,left: 4.w),
+          padding:EdgeInsets.all(8.w),
           child: GestureDetector(
             onTap: (){
               Navigator.pop(context);
@@ -60,7 +61,7 @@ class _CartScreenState extends State<CartScreen> {
                 color: orange,
                 decoration: TextDecoration.underline,
                 decorationColor: orange,
-                fontSize: 16
+                fontSize: 15
             ),),
           ),
         ],
@@ -104,25 +105,34 @@ class _CartScreenState extends State<CartScreen> {
                       child: Row(
                         children: [
 
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network("${state.foods[foodIdIndex].image}",fit: BoxFit.cover,width: 100.w,
-                                height: 120.h,
+                          Container(
 
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    width: 100.w,
-                                    height: 100.h,
-                                    color: lightGrey,
-                                    child: Icon(
-                                      Icons.fastfood,
-                                      size: 40,
-                                      color: Colors.redAccent,
-                                    ),
-                                  );
-                                },
+                            padding: EdgeInsets.all(4.w),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: darkBlue
+                            ),
 
-                              )),
+                            child: ClipOval(
+
+                                child: Image.network("${state.foods[foodIdIndex].image}",fit: BoxFit.cover,width: 80.w,
+                                  height: 100.h,
+
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      width: 100.w,
+                                      height: 100.h,
+                                      color: lightGrey,
+                                      child: Icon(
+                                        Icons.fastfood,
+                                        size: 40,
+                                        color: Colors.redAccent,
+                                      ),
+                                    );
+                                  },
+
+                                )),
+                          ),
 
                           SizedBox(width: 8.w,),
 
@@ -131,7 +141,7 @@ class _CartScreenState extends State<CartScreen> {
                             children: [
                               Text("${state.foods[foodIdIndex].name}",style: TextStyle(
                                   color: grey,
-                                  letterSpacing: 2,
+                                  letterSpacing: 1,
                                   fontSize: 20
                               ),),
 
@@ -143,7 +153,7 @@ class _CartScreenState extends State<CartScreen> {
 
                                   Transform.translate(
                                     offset: Offset(-6, 0),
-                                    child: Text("${state.foods[foodIdIndex].price}",style: TextStyle(
+                                    child: Text("${state.cart[index]["price"]}",style: TextStyle(
                                         color: white,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold
@@ -173,21 +183,32 @@ class _CartScreenState extends State<CartScreen> {
 
 
 
-                                    Transform.translate(
-                                      offset: Offset(0, -7),
-                                      child: GestureDetector(
-                                                      onTap: (){
-                                                      if(state.cart[index]["quantity"]>0) {
+                                    Container(
 
-                                                        int newQuantity=state.cart[index]["quantity"];
-                                                        newQuantity--;
+                                      padding: EdgeInsets.all(4.w),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: darkBlue
+                                      ),
 
-                                                      context.read<AppBloc>().add(UpdateCart(
-                                                      id: state.cart[index]["id"],
-                                                      quantity: newQuantity));
-                                                      }
-                                                      },
-                                                      child: Icon(Icons.minimize,color: white,)),
+                                      child: Transform.translate(
+                                        offset: Offset(0, -7),
+                                        child: GestureDetector(
+                                                        onTap: (){
+                                                        if(state.cart[index]["quantity"]>0) {
+
+                                                          int newQuantity=state.cart[index]["quantity"];
+                                                          newQuantity--;
+
+                                                        context.read<AppBloc>().add(UpdateCart(
+                                                        id: state.cart[index]["id"],
+                                                        quantity: newQuantity,
+                                                        price: state.cart[index]["price"]
+                                                        ));
+                                                        }
+                                                        },
+                                                        child: Icon(Icons.minimize,color: white,)),
+                                      ),
                                     ),
 
                                                     SizedBox(width: 8.w,),
@@ -202,8 +223,16 @@ class _CartScreenState extends State<CartScreen> {
 
                                                       context.read<AppBloc>().add(UpdateCart(
                                                           id: state.cart[index]["id"],
-                                                          quantity: newQuantity));   },
-                                                    child: Icon(Icons.add,color: white,)),
+                                                          quantity: newQuantity,
+                                                          price: state.cart[index]["price"]
+                                                      ));   },
+                                                    child: Container(
+                                                        padding: EdgeInsets.all(4.w),
+                                                        decoration: BoxDecoration(
+                                                          shape: BoxShape.circle,
+                                                          color: darkBlue
+                                                        ),
+                                                        child: Icon(Icons.add,color: white,))),
 
                                   ],
 
@@ -244,12 +273,17 @@ class _CartScreenState extends State<CartScreen> {
                         ),),
 
 
-                        Text("EDIT",style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: orange,
-                          color: orange,
-                          fontSize: 13,
-                        ),),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>EditAddressScreen()));
+                          },
+                          child: Text("EDIT",style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            decorationColor: orange,
+                            color: orange,
+                            fontSize: 13,
+                          ),),
+                        ),
 
                       ],
                     ),
@@ -297,7 +331,7 @@ class _CartScreenState extends State<CartScreen> {
                           fontSize: 12,
                         ),),
 
-                        Icon(Icons.arrow_forward_ios_outlined),
+                        Icon(Icons.arrow_forward_ios_outlined,size: 12,color: orange,),
 
 
                       ],
