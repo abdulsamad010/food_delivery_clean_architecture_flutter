@@ -21,13 +21,13 @@ class Onboarding1Screen extends StatelessWidget {
 
             Container(
               height: 250.h,
-            width: 150.w,
+            width: 250.w,
                 decoration: BoxDecoration(
                   color: lightOrange,
                   borderRadius: BorderRadiusGeometry.circular(5),
                   border: Border.all(color: Colors.red)
                 ),
-                child: Icon(Icons.favorite,color: Colors.red,size: 100.sp,),
+                child: Icon(Icons.favorite,color: orange,size: 100.sp,),
             ),
 
             SizedBox(height: 64.h,),
@@ -128,7 +128,7 @@ class Onboarding1Screen extends StatelessWidget {
                 color: grey,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1,
-                fontSize: 17
+                fontSize: 18
               ),
             ))
 
