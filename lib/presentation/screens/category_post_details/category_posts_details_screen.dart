@@ -36,6 +36,7 @@ class _CategoryPostsDetailsScreenState extends State<CategoryPostsDetailsScreen>
   void initState() {
     super.initState();
 
+    context.read<AppBloc>().add(SelectSize(0));
     check();
 
   }
@@ -231,20 +232,25 @@ class _CategoryPostsDetailsScreenState extends State<CategoryPostsDetailsScreen>
                           itemBuilder: (context,index){
                           return Padding(
                             padding: EdgeInsets.only(right: 8.w),
-                            child: Container(
-                              width: 70.h,
-                              height: 80.h,
-                              padding: EdgeInsets.all(4.w),
-                              decoration: BoxDecoration(
-                                color: lightBlueGrey,
-                                shape: BoxShape.circle
-                              ),
+                            child: GestureDetector(
+                              onTap: (){
+                                context.read<AppBloc>().add(SelectSize(index));
+                              },
+                              child: Container(
+                                width: 70.h,
+                                height: 80.h,
+                                padding: EdgeInsets.all(4.w),
+                                decoration: BoxDecoration(
+                                  color: state.size == index ? orange :lightBlueGrey,
+                                  shape: BoxShape.circle
+                                ),
 
-                              child:Center(
-                                child: Text("${state.appCategoryFoods[widget.index].sizes[index]["name"]}",style: TextStyle(
-                                  fontSize: 12,fontWeight: FontWeight.bold,
-                                color: black,
-                                ),),
+                                child:Center(
+                                  child: Text("${state.appCategoryFoods[widget.index].sizes[index]["name"]}",style: TextStyle(
+                                    fontSize: 12,fontWeight: FontWeight.bold,
+                                  color: black,
+                                  ),),
+                                ),
                               ),
                             ),
                           );
@@ -279,7 +285,7 @@ class _CategoryPostsDetailsScreenState extends State<CategoryPostsDetailsScreen>
                             Icon(Icons.attach_money,fontWeight: FontWeight.bold,),
                             Transform.translate(
                               offset: Offset(-6, 0),
-                              child: Text("${state.appCategoryFoods[widget.index].price}",
+                              child: Text("${state.appCategoryFoods[widget.index].sizes[state.size]["price"]}",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
@@ -306,7 +312,9 @@ class _CategoryPostsDetailsScreenState extends State<CategoryPostsDetailsScreen>
                                         context.read<AppBloc>().add(UpdateCart(
                                             id: state.appCategoryFoods[widget
                                                 .index].id,
-                                            quantity: quantity));
+                                            quantity: quantity,
+                                            price: state.appCategoryFoods[widget.index].sizes[state.size]["price"]
+                                        ));
                                       }
                                       },
                                     child: Icon(Icons.minimize,color: white,)),
@@ -319,7 +327,7 @@ class _CategoryPostsDetailsScreenState extends State<CategoryPostsDetailsScreen>
                               GestureDetector(
                                   onTap: (){
                                     quantity++;
-                                    context.read<AppBloc>().add(UpdateCart(id: state.appCategoryFoods[widget.index].id, quantity: quantity));
+                                    context.read<AppBloc>().add(UpdateCart(id: state.appCategoryFoods[widget.index].id, quantity: quantity,price: state.appCategoryFoods[widget.index].sizes[state.size]["price"]));
                                   },
                                   child: Icon(Icons.add,color: white,)),
                             ],
