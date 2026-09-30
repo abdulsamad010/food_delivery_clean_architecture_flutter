@@ -5,6 +5,7 @@ import 'package:week8_task/data/datasources/food_data.dart';
 import 'package:week8_task/presentation/screens/cart/cart_screen.dart';
 import 'package:week8_task/presentation/screens/category_posts/category_posts_screen.dart';
 import 'package:week8_task/presentation/screens/chat/chat_screen.dart';
+import 'package:week8_task/presentation/screens/edit_address/edit_address_screen.dart';
 import 'package:week8_task/presentation/screens/login/login_screen.dart';
 import 'package:week8_task/presentation/screens/payment/payment_screen.dart';
 import 'package:week8_task/presentation/screens/restaurant/restaurant_screen.dart';
@@ -172,6 +173,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
+
+                            ListTile(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>EditAddressScreen()));
+                              },
+                              title: Text("Address",style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darkGrey,
+                                  fontSize: 13,
+                                  letterSpacing: 3
+                              ),),
+                              leading: SvgPicture.asset("assets/icons/map.svg"),
+                              trailing: Icon(Icons.arrow_forward_ios_outlined,color: darkGrey,size: 15.sp,),
+                            ),
+
+                            SizedBox(height: 16.h,),
+
+
+
                             ListTile(
                               onTap: (){
 
@@ -222,9 +242,9 @@ Please contact support through the app and provide your order details so the iss
 ''',
                                       style: TextStyle(
                                         color: darkGrey,
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                         fontWeight: FontWeight.bold,
-                                        height: 1.5,
+                                        height: 1.3,
                                       ),
                                     ),
 
@@ -353,27 +373,29 @@ Please contact support through the app and provide your order details so the iss
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Delivery To",style: TextStyle(
-                color: orange,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                letterSpacing: 1
-            ),),
-
-            Row(
-              children: [
-                Text("Halal Lab office",style: TextStyle(
-                  color:grey,
+            Transform.translate(
+              offset: Offset(0, 10),
+              child: Text("Delivery To",style: TextStyle(
+                  color: orange,
                   fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                ),),
-
-                SizedBox(width: 4.w,),
-
-                Icon(Icons.arrow_drop_down_outlined,color: black,)
-              ],
+                  fontSize: 12,
+                  letterSpacing: 1
+              ),),
             ),
+
+            DropdownButton(
+                underline: DropdownButtonHideUnderline(child: SizedBox()),
+                items: [
+              DropdownMenuItem(child:Text("Halal Lab office",style: TextStyle(
+            color:darkGrey,
+            fontWeight: FontWeight.bold,
+              fontSize: 10,
+            ),))
+            ], onChanged: (i){
+
+            }),
 
            // Expanded(child: SizedBox()),
 
@@ -569,8 +591,8 @@ Please contact support through the app and provide your order details so the iss
 
                                       errorBuilder: (context, error, stackTrace) {
                                         return Container(
-                                          width: 100.w,
-                                          height: 100.h,
+                                          width: 50.w,
+                                          height: 50.h,
                                           color: lightGrey,
                                           child: Icon(
                                             Icons.fastfood,
