@@ -156,6 +156,7 @@ class AppBloc extends Bloc<AppEvent,AppState>{
       for(int i=0; i<state.cart.length;i++) {
         if(cart1[i]["id"]==event.id) {
           cart1[i]["quantity"]=event.quantity;
+          cart1[i]["price"]=event.price;
           isContain=true;
         }
       }
@@ -163,7 +164,8 @@ class AppBloc extends Bloc<AppEvent,AppState>{
       if(isContain==false){
         cart1.add({
           "id": event.id,
-          "quantity": event.quantity
+          "quantity": event.quantity,
+          "price":event.price,
         });
       }
 
@@ -174,7 +176,7 @@ class AppBloc extends Bloc<AppEvent,AppState>{
       for (int i = 0; i < cart1.length; i++) {
         for (int j = 0; j < state.foods.length; j++) {
           if (state.foods[j].id == cart1[i]["id"]) {
-            price1 += state.foods[j].price * cart1[i]["quantity"];
+            price1 += cart1[i]["price"] * cart1[i]["quantity"];
           }
         }
       }
@@ -182,6 +184,7 @@ class AppBloc extends Bloc<AppEvent,AppState>{
 
       emit(
           AppState(
+            size: state.size,
               cards: state.cards,
             selectPaymentIndex: state.selectPaymentIndex,
             paymentOptions: state.paymentOptions,
@@ -205,8 +208,7 @@ class AppBloc extends Bloc<AppEvent,AppState>{
       List<Map<String, dynamic>>.from(state.appCategories);
 
       for (int i = 0; i < state.foods.length; i++) {
-        if (state.restaurants[event.index]["id"] ==
-            state.foods[i].restaurantId) {
+        if (state.restaurants[event.index]["id"] == state.foods[i].restaurantId && state.foods[i].category==state.restaurants[event.index]["categories"][event.sizeIndex]) {
           appCategoryFoods1.add(state.foods[i]);
         }
       }
@@ -220,6 +222,24 @@ class AppBloc extends Bloc<AppEvent,AppState>{
             foods: state.foods,
             appCategories: appCategories1,
             appCategoryFoods:appCategoryFoods1,
+            cart: state.cart
+        ),
+      );
+    });
+
+
+    on<SelectSize>((event, emit) {
+      final size1=event.index;
+      emit(
+        AppState(
+          size: size1,
+            cards: state.cards,
+            selectPaymentIndex: state.selectPaymentIndex,
+            paymentOptions: state.paymentOptions,
+            price: state.price,
+            foods: state.foods,
+            appCategories: state.appCategories,
+            appCategoryFoods:state.appCategoryFoods,
             cart: state.cart
         ),
       );
