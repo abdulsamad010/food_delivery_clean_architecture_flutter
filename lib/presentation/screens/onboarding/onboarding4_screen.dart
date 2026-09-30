@@ -20,7 +20,7 @@ class Onboarding4Screen extends StatelessWidget {
 
             Container(
               height: 250.h,
-            width: 150.w,
+            width: 250.w,
                 decoration: BoxDecoration(
                   color: lightOrange,
                   borderRadius: BorderRadiusGeometry.circular(5),
