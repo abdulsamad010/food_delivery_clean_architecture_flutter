@@ -78,6 +78,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
                   children: [
 
                     DropdownButton(
+                      underline:DropdownButtonHideUnderline(child: SizedBox()),
 
                       value: widget.category,
 
