@@ -8,14 +8,22 @@ class SelectCategory extends AppEvent{
 }
 
 class SelectRestaurant extends AppEvent{
-  final index;
-  SelectRestaurant(this.index);
+  final index,sizeIndex;
+  SelectRestaurant({required this.index,required this.sizeIndex});
 }
+
+
 
 class UpdateCart extends AppEvent{
   final int id;
   final quantity;
-  UpdateCart({required this.id,required this.quantity});
+  final price;
+  UpdateCart({required this.id,required this.quantity,required this.price});
+}
+
+class SelectSize extends AppEvent{
+  final index;
+  SelectSize(this.index);
 }
 
 class SelectPayment extends AppEvent{
