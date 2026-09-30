@@ -21,7 +21,7 @@ class Onboarding3Screen extends StatelessWidget {
 
             Container(
               height: 250.h,
-            width: 150.w,
+            width: 250.w,
                 decoration: BoxDecoration(
                   color: lightOrange,
                   borderRadius: BorderRadiusGeometry.circular(5),
@@ -129,7 +129,7 @@ class Onboarding3Screen extends StatelessWidget {
                 color: grey,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1,
-                fontSize: 17
+                fontSize: 18
               ),
             ))
 
