@@ -28,13 +28,13 @@ class RestaurantCard extends StatelessWidget {
 
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    width: 100.w,
-                    height: 100.h,
+                    width: double.infinity,
+                    height: 181.h,
                     color: lightGrey,
                     child: Icon(
                       Icons.fastfood,
                       size: 40,
-                      color: grey,
+                      color: orange,
                     ),
                   );
                 },
