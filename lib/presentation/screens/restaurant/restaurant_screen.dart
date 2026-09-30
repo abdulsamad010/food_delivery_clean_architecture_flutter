@@ -23,7 +23,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   void initState() {
     super.initState();
 
-    context.read<AppBloc>().add(SelectRestaurant(widget.resId));
+    context.read<AppBloc>().add(SelectRestaurant(index: widget.resId,sizeIndex: 0));
   }
 
   @override
@@ -32,7 +32,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
       appBar: AppBar(
           backgroundColor: white,
           leading: Padding(
-            padding:EdgeInsets.only(bottom: 4.w,top:4.w,left: 4.w),
+            padding:EdgeInsets.all(8.w),
             child: GestureDetector(
               onTap: (){
                 Navigator.pop(context);
@@ -60,7 +60,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
         actions: [
 
           Padding(
-            padding:EdgeInsets.only(top:4.w,right: 4.w),
+            padding:EdgeInsets.all(8.w),
             child: GestureDetector(
               onTap: (){
                 Navigator.pop(context);
@@ -185,19 +185,24 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                               itemBuilder: (context,index){
                               return Padding(
                                 padding: EdgeInsets.only(right: 8.w),
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(16.w,8.w,16.w,8.w),
-                                  decoration: BoxDecoration(
-                                    color: white,
-                                    border: Border.all(color: grey),
-                                    borderRadius: BorderRadius.circular(45)
-                                  ),
+                                child: GestureDetector(
+                                  onTap: (){
+                                    context.read<AppBloc>().add(SelectRestaurant(index: widget.resId, sizeIndex: index));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.fromLTRB(16.w,8.w,16.w,8.w),
+                                    decoration: BoxDecoration(
+                                      color:  state.restaurants[widget.resId]["categories"][index] !=state.appCategoryFoods[0].category ? white :orange,
+                                      border: Border.all(color: grey),
+                                      borderRadius: BorderRadius.circular(45)
+                                    ),
 
-                                  child:Center(
-                                    child: Text("${state.restaurants[widget.resId]["categories"][index]}",style: TextStyle(
-                                      fontSize: 15,fontWeight: FontWeight.bold,
-                                    color: black,
-                                    ),),
+                                    child:Center(
+                                      child: Text("${state.restaurants[widget.resId]["categories"][index]}",style: TextStyle(
+                                        fontSize: 15,fontWeight: FontWeight.bold,
+                                      color: black,
+                                      ),),
+                                    ),
                                   ),
                                 ),
                               );
